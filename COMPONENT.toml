@@ -1,0 +1,9 @@
+name = "SigmaOS-wifi"
+schema_version = 1
+responsibility = "Wi-Fi device discovery, firmware lifecycle, interface control, and link events"
+canonical_owner = "SigmaOS-services"
+integration_repository = "https://github.com/AaryanSinghChauhan09/SigmaOS"
+capability = "wifi_networking"
+canonical_branch = "main"
+status = "scaffold"
+license = "GPL-3.0-or-later"
