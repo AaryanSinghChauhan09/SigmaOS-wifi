@@ -1,9 +1,26 @@
-//! SigmaOS-wifi - SigmaOS Component
-//!
-//! This component is part of the SigmaOS operating system.
+use anyhow::Result;
+use clap::Parser;
+use wifi::wifi;
 
-fn main() {
-    println!("SigmaOS SigmaOS-wifi - Under Development");
-    println!("Version: 0.1.0");
-    println!("Status: Initial implementation");
+#[derive(Parser)]
+struct Cli {
+    #[arg(short, long)]
+    debug: bool,
+}
+
+fn main() -> Result<()> {
+    let cli = Cli::parse();
+    let config = wifi::Config { debug: cli.debug, ..Default::default() };
+    let mut component = wifi::new(config);
+    
+    component.initialize()?;
+    component.start()?;
+    
+    println!("SigmaOS-wifi running (Ctrl+C to stop)");
+    tokio::runtime::Runtime::new()?.block_on(async {
+        tokio::signal::ctrl_c().await.unwrap();
+    });
+    
+    component.stop()?;
+    Ok(())
 }
