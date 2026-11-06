@@ -1,44 +1,17 @@
-//! SigmaOS-wifi - SigmaOS Component
+//! SigmaOS-wifi — WiFi stack model.
 //!
-//! Essential infrastructure component for SigmaOS.
+//! Models WiFi interfaces, scan results, authentication (WPA/WPA2),
+//! connection management, and SSID/bssid handling. Deterministic
+//! and std-only (no actual hardware access).
 
-use anyhow::Result;
-use log::{info, error};
-use serde::{Deserialize, Serialize};
+pub mod iface;
+pub mod scan;
+pub mod auth;
+pub mod wpa;
+pub mod connect;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Config {
-    pub enabled: bool,
-    pub debug: bool,
-}
-
-impl Default for Config {
-    fn default() -> Self {
-        Self { enabled: true, debug: false }
-    }
-}
-
-pub struct wifi {
-    config: Config,
-}
-
-impl wifi {
-    pub fn new(config: Config) -> Self {
-        Self { config }
-    }
-
-    pub fn initialize(&mut self) -> Result<()> {
-        info!("Initializing SigmaOS-wifi");
-        Ok(())
-    }
-
-    pub fn start(&mut self) -> Result<()> {
-        info!("Starting SigmaOS-wifi");
-        Ok(())
-    }
-
-    pub fn stop(&mut self) -> Result<()> {
-        info!("Stopping SigmaOS-wifi");
-        Ok(())
-    }
-}
+pub use iface::{WifiInterface, WifiState};
+pub use scan::{ScanResult, ScanManager};
+pub use auth::{AuthMethod, AuthStatus};
+pub use wpa::{WpaConfig, WpaSupplicant};
+pub use connect::{Connection, ConnectionManager};
