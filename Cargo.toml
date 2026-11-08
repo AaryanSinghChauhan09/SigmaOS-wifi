@@ -2,10 +2,9 @@
 name = "sigmaos_wifi"
 version = "0.1.0"
 edition = "2021"
-description = "SigmaOS WiFi stack: interfaces, scan, authentication, WPA, connection management"
+license = "MIT"
+description = "SigmaOS wifi component inspired by Linux Mint / Omarchy / Arch Linux."
 
 [lib]
 name = "sigmaos_wifi"
 path = "src/lib.rs"
-
-[dependencies]
